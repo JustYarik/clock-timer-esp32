@@ -1,0 +1,141 @@
+esphome:
+  name: esphome-media-player
+  friendly_name: MadiaPlayer
+
+esp32:
+  board: nodemcu-32s
+  framework:
+    type: arduino
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: "VdYFcBK7U6asCylpGancIfuNSNI9mcSukauTN7WuR1g="
+
+ota:
+
+
+wifi:
+  ssid: "Tenda_16EF40"
+  password: "1234567890"
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Esphome-Web-Ca6934"
+    password: "3yiaOtmLckNp"
+
+
+captive_portal:
+
+# media_player:
+  # - platform: i2s_audio
+    # name: "My Media Player"  
+    # dac_type: internal
+    #i2s_lrclk_pin: GPIO33
+    #i2s_dout_pin: GPIO22
+    #i2s_bclk_pin: GPIO19
+    # mode: stereo
+
+
+time:
+  - platform: homeassistant
+    id: homeassistant_time
+  
+esp32_touch:
+
+binary_sensor:
+  - platform: esp32_touch
+    name: "start timer"
+    id: start_counter
+    pin: GPIO27
+    threshold: 1000
+    filters:
+      - delayed_on: 200ms
+ 
+#Weather
+sensor:
+  - platform: homeassistant
+    id: feelLiketemperature
+    entity_id: sensor.openweathermap_feels_like_temperature
+    internal: true
+  - platform: homeassistant
+    id: forecasttemperature
+    entity_id: sensor.openweathermap_forecast_temperature
+    internal: true
+    
+
+display:
+  platform: tm1637
+  clk_pin: GPIO22
+  dio_pin: GPIO23
+  update_interval: 1000ms
+  lambda: |-
+    static int i = 0;
+    static int initcounter = 0;
+    static bool autostarttime = false;
+    static bool sstart = false;
+    static int timeframe = 18;
+    
+    initcounter++;
+    if ( initcounter <60 and !sstart ) {it.printf(0, "LOAd");}
+    if ( initcounter > 60 
+         and initcounter < 360
+         and !sstart
+       )   
+       {autostarttime = true; i = 610;}
+    if ( initcounter > 20000) {initcounter = 100;}
+
+    if (sstart and id(start_counter).state)
+    { i = 0; }
+    else if (id(start_counter).state)
+    { sstart = true; }
+    
+    if (sstart or autostarttime)
+    {
+      initcounter = 361;
+      i++;
+      if (i <600)
+      { it.printf(1, "%u.%02d", i/60, i%60); }
+      else if (i == 600) {}
+      else if (i > 600)
+      {
+          // Print feelLiketemperature temperature (from homeassistant sensor)
+        if ( 
+                 (i % timeframe == 0 or (i-1) % timeframe ==0 )
+             and id(feelLiketemperature).has_state()
+           )
+        {
+            it.printf(0, "%.f", id(feelLiketemperature).state); 
+            it.printf(3, "C"); 
+        }
+          // Print forecasttemperature temperature (from homeassistant sensor)
+        else if ( 
+                     ((i-2) % timeframe == 0 or (i-3) % timeframe == 0 )
+                 and id(forecasttemperature).has_state()
+                )
+        {
+            if (id(forecasttemperature).state > -10)
+            {
+              it.printf(0, "F "); 
+              it.printf(2, "%.f", id(forecasttemperature).state); 
+            }
+            else 
+            {
+              it.printf(0, "F"); 
+              it.printf(1, "%.f", id(forecasttemperature).state); 
+            }
+        }       
+        else if ((i % 2) == 0)
+          it.strftime("%H.%M", id(homeassistant_time).now());
+        else
+          it.strftime("%H%M", id(homeassistant_time).now());
+      }
+      
+      if (i>15000){i=610;}
+        
+    }
+   
+    

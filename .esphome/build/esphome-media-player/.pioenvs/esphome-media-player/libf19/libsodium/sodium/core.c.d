@@ -1,0 +1,20 @@
+.pioenvs/esphome-media-player/libf19/libsodium/sodium/core.c.o: \
+ .piolibdeps/esphome-media-player/libsodium/libsodium/src/libsodium/sodium/core.c \
+ /Users/yaroslavpodoba/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/newlib/platform_include/assert.h \
+ /Users/yaroslavpodoba/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/dio_qspi/include/sdkconfig.h \
+ /Users/yaroslavpodoba/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/newlib/platform_include/time.h \
+ .piolibdeps/esphome-media-player/libsodium/libsodium/src/libsodium/include/sodium/core.h \
+ .piolibdeps/esphome-media-player/libsodium/libsodium/src/libsodium/include/sodium/export.h \
+ .piolibdeps/esphome-media-player/libsodium/libsodium/src/libsodium/include/sodium/crypto_generichash.h \
+ .piolibdeps/esphome-media-player/libsodium/libsodium/src/libsodium/include/sodium/crypto_generichash_blake2b.h \
+ .piolibdeps/esphome-media-player/libsodium/libsodium/src/libsodium/include/sodium/crypto_onetimeauth.h \
+ .piolibdeps/esphome-media-player/libsodium/libsodium/src/libsodium/include/sodium/crypto_onetimeauth_poly1305.h \
+ .piolibdeps/esphome-media-player/libsodium/libsodium/src/libsodium/include/sodium/crypto_scalarmult.h \
+ .piolibdeps/esphome-media-player/libsodium/libsodium/src/libsodium/include/sodium/crypto_scalarmult_curve25519.h \
+ .piolibdeps/esphome-media-player/libsodium/libsodium/src/libsodium/include/sodium/crypto_stream_chacha20.h \
+ .piolibdeps/esphome-media-player/libsodium/libsodium/src/libsodium/include/sodium/crypto_stream_salsa20.h \
+ .piolibdeps/esphome-media-player/libsodium/libsodium/src/libsodium/include/sodium/randombytes.h \
+ .piolibdeps/esphome-media-player/libsodium/libsodium/src/libsodium/include/sodium/runtime.h \
+ .piolibdeps/esphome-media-player/libsodium/libsodium/src/libsodium/include/sodium/utils.h \
+ .piolibdeps/esphome-media-player/libsodium/libsodium/src/libsodium/include/sodium/private/implementations.h \
+ .piolibdeps/esphome-media-player/libsodium/libsodium/src/libsodium/include/sodium/private/mutex.h

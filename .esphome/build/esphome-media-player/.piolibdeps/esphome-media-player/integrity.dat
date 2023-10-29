@@ -1,0 +1,8 @@
+Update
+esphome/ESPAsyncWebServer-esphome@2.1.0
+DNSServer
+WiFi
+FS
+esphome/AsyncTCP-esphome@1.2.2
+ESPmDNS
+esphome/noise-c@0.1.4
